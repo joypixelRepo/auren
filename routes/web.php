@@ -14,12 +14,13 @@ use GuzzleHttp\Client;
 |
 */
 
-Route::get('/', function (GuzzleHttp\Client $client) {
-    // Route::get('/', function (GuzzleHttp\Client $client);
-    $response = $client->request('GET', "europe");
-    $data = json_decode($response->getBody());
-    dd($data);
-    //die;
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-    //return view('welcome');
+Route::get('/', function (GuzzleHttp\Client $client) {
+    $response = $client->request('GET', $_GET['region']);
+    $countries = json_decode($response->getBody());
+
+    return view('home', ['countries' => $countries]);
 });
