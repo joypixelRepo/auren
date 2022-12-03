@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use GuzzleHttp\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (GuzzleHttp\Client $client) {
+    // Route::get('/', function (GuzzleHttp\Client $client);
+    $response = $client->request('GET', "europe");
+    $data = json_decode($response->getBody());
+    dd($data);
+    //die;
+
+    //return view('welcome');
 });
