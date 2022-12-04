@@ -19,8 +19,13 @@ use GuzzleHttp\Client;
 // });
 
 Route::get('/', function (GuzzleHttp\Client $client) {
-    $response = $client->request('GET', $_GET['region']);
-    $countries = json_decode($response->getBody());
+    $response = $client->request('GET', 'all');
+    $data = json_decode($response->getBody());
+    return view('welcome', ['countries' => $data]);
+});
 
-    return view('home', ['countries' => $countries]);
+Route::get('/region/{region}', function (GuzzleHttp\Client $client, $region) {
+    $response = $client->request('GET', 'region/'.$region);
+    $data = json_decode($response->getBody());
+    return view('countries', ['countries' => $data]);
 });

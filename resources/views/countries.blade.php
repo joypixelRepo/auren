@@ -1,4 +1,4 @@
-@extends('head')
+@include('head')
 <body>
 
   <table>
