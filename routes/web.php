@@ -18,10 +18,10 @@ use GuzzleHttp\Client;
 //     return view('welcome');
 // });
 
-Route::get('/', function (GuzzleHttp\Client $client) {
-    $response = $client->request('GET', 'all');
-    $data = json_decode($response->getBody());
-    return view('welcome', ['countries' => $data]);
+Route::get('/', function () {
+    // $response = $client->request('GET', 'all');
+    // $data = json_decode($response->getBody());
+    return view('home');
 });
 
 Route::get('/region/{region}', function (GuzzleHttp\Client $client, $region) {

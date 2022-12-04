@@ -17,10 +17,9 @@ class CreateCountriesTable extends Migration
             $table->id();
             $table->string('common_name');
             $table->string('official_name');
-            $table->string('official_native_name');
-            $table->string('common_native_name');
-            $table->boolean('independent');
             $table->string('capital');
+            $table->string('region');
+            $table->string('cca2');
             $table->timestamps();
         });
     }
