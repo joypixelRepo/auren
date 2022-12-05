@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use GuzzleHttp\Client;
+use App\Http\Controllers\CountriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +15,38 @@ use GuzzleHttp\Client;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
-    // $response = $client->request('GET', 'all');
-    // $data = json_decode($response->getBody());
     return view('home');
 });
 
 Route::get('/region/{region}', function (GuzzleHttp\Client $client, $region) {
-    $response = $client->request('GET', 'region/'.$region);
-    $data = json_decode($response->getBody());
-    return view('countries', ['countries' => $data]);
+    //get database data
+    $notes = DB::table('countries')->get();
+    $dataDb = json_decode($notes);
+
+    // get API data
+    $responseApi = $client->request('GET', 'region/'.$region);
+    $dataApi = json_decode($responseApi->getBody());
+
+    // check if the country is in database and add to an array
+    $countriesInDb = [];
+    foreach ($dataApi as $countryApi) {
+      foreach ($dataDb as $countryDb) {
+        if($countryApi->cca2 == $countryDb->cca2) {
+          $countriesInDb[] = $countryApi->cca2;
+        }
+      }
+    }
+
+    return view('countries', 
+      [
+        'countriesApi' => $dataApi,
+        'countriesDb' => $dataDb,
+        'countriesInDb' => $countriesInDb,
+      ],
+    );
 });
+
+
+
+

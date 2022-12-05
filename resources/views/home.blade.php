@@ -7,7 +7,7 @@
           <table class="countries">
             <thead>
               <tr>
-                <td colspan="5">Región</td>
+                <td colspan="5">Selecciona la región</td>
               </tr>
             </thead>
             <tbody>

@@ -19,7 +19,7 @@ class CreateCountriesTable extends Migration
             $table->string('official_name');
             $table->string('capital');
             $table->string('region');
-            $table->string('cca2');
+            $table->string('cca2')->unique();
             $table->timestamps();
         });
     }

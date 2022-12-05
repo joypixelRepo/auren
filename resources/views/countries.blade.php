@@ -21,7 +21,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($countries as $key => $country)
+              @foreach ($countriesApi as $key => $country)
               <tr>
                 <td>{{ $country->name->common }}</td>
                 <td>{{ $country->name->official }}</td>
@@ -44,11 +44,18 @@
                   </a>
                 </td>
                 <td>
-                  <a href="#" title="Crear país en base de datos">
+                  @if (!in_array($country->cca2, $countriesInDb))
+                  <a href="/add/{{$country->cca2}}"
+                    title="Crear país en base de datos">
                     <button class="create">
                       <i class="fa-solid fa-floppy-disk"></i>
                     </button>
                   </a>
+                  @else
+                  <button disabled class="created">
+                    <i class="fa-solid fa-thumbs-up"></i>
+                  </button>
+                  @endif
                 </td>
                 <td>
                   <a href="#" title="Actualizar en base de datos">
