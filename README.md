@@ -13,5 +13,5 @@ Pasos para hacer correr el proyecto:
 Laravel 8.83.26
 
 Include:
-Bootstrap 5.1.3
-jQuery 3.6.1
+- Bootstrap 5.1.3
+- jQuery 3.6.1
