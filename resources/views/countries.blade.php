@@ -12,63 +12,65 @@
           <table class="countries">
             <thead>
               <tr>
+                <td></td>
                 <td>Nombre común</td>
                 <td>Nombre oficial</td>
                 <td>Capital</td>
                 <td>Región</td>
                 <td>CCA2</td>
-                <td colspan="5"></td>
+                <td class="bg-white"></td>
               </tr>
             </thead>
             <tbody>
               @foreach ($countriesApi as $key => $country)
               <tr>
-                <td>{{ $country->name->common }}</td>
+                <td>
+                  <a href="/view/{{$country->cca2}}">
+                    <img class="mini-flag" src="{{ $country->flags->svg }}" alt="bandera">
+                  </a>
+                </td>
+                <td class="fw600">
+                  <a class="cblack" href="/view/{{$country->cca2}}">{{ $country->name->common }}</a>
+                </td>
                 <td>{{ $country->name->official }}</td>
                 @if (!empty($country->capital))
-                  <td>
-                  @foreach ($country->capital as $capitals)
-                    {{ $capitals }}
-                  @endforeach
-                  </td>
+                  <td>{{$country->capital[0]}}</td>
                 @else
                   <td>Sin capital</td>
                 @endif
                 <td>{{ $country->region }}</td>
-                <td>{{ $country->cca2 }}</td>
-                <td>
-                  <a href="#" title="Ver más información de {{$country->name->common}}">
+                <td class="fw600">{{ $country->cca2 }}</td>
+                <td class="text-start bg-white">
+                  <!-- <a href="/view/{{$country->cca2}}"
+                    title="Ver más información de {{$country->name->common}}">
                     <button class="read">
                       <i class="fa-solid fa-circle-info"></i>
                     </button>
-                  </a>
-                </td>
-                <td>
+                  </a> -->
                   @if (!in_array($country->cca2, $countriesInDb))
                   <a href="/add/{{$country->cca2}}?ret={{$_SERVER['REQUEST_URI']}}"
+                    class="confirm"
+                    onclick="return confirm('¿Quieres crear el país {{$country->name->common}}?')" 
                     title="Guardar {{$country->name->common}}">
                     <button class="create">
                       <i class="fa-solid fa-floppy-disk"></i>
                     </button>
                   </a>
                   @else
-                    <button disabled title="{{$country->name->common}} ya está guardado" class="created">
-                      <i class="fa-solid fa-thumbs-up"></i>
-                    </button>
+                    <a href="/upd/{{$country->cca2}}?ret={{$_SERVER['REQUEST_URI']}}"
+                      class="confirm"
+                      onclick="return confirm('¿Quieres actualizar {{$country->name->common}}?')"
+                      title="Actualizar {{$country->name->common}}">
+                      <button class="update">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </button>
+                    </a>
                   @endif
-                </td>
-                <td>
                   @if (in_array($country->cca2, $countriesInDb))
-                  <a href="/upd/{{$country->cca2}}?ret={{$_SERVER['REQUEST_URI']}}" title="Actualizar {{$country->name->common}}">
-                    <button class="update">
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                  </a>
-                  @endif
-                </td>
-                <td>
-                  @if (in_array($country->cca2, $countriesInDb))
-                  <a href="/del/{{$country->cca2}}?ret={{$_SERVER['REQUEST_URI']}}" title="Borrar {{$country->name->common}}">
+                  <a href="/del/{{$country->cca2}}?ret={{$_SERVER['REQUEST_URI']}}"
+                    class="confirm"
+                    onclick="return confirm('¿Quieres eliminar {{$country->name->common}}?')"
+                    title="Borrar {{$country->name->common}}">
                     <button class="delete">
                       <i class="fa-solid fa-trash-can"></i>
                     </button>

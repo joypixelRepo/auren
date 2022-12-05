@@ -4,6 +4,9 @@ body {
   font-family: 'Mulish', sans-serif;
   font-weight: 300;
 }
+a {
+  text-decoration: none;
+}
 .content {
   margin: 30px 0;
 }
@@ -13,45 +16,111 @@ body {
   margin-bottom: 15px;
 }
 table.countries {
-  margin: 15px 0;
+  margin: 20px 0;
   width: 100%;
 }
 table.countries thead {
-  background: black;
+  background: #616161;
   color: #fff;
+  font-weight: 600;
 }
 table.countries td {
-  padding: 3px;
+  padding: 3px 6px;
 }
 table.countries button {
   border: 0;
-  color: black;
+  color: #3f3f3f;
+  width: 35px;
+  height: 26px;
+  background: #f8f8f8;
+  box-shadow: 0px 0px 2px #0000007d;
+  margin: 0 -2px;
 }
 table.countries button i {
   width: 15px;
 }
-table.countries button.read {
-  background: #a8dce3;
+table.countries button.read i {
+  color: #5f9dcb;
 }
-table.countries button.create {
-  background: #addcad;
+table.countries button.create i {
+  color: #80b180;
 }
-table.countries button.created {
-  background: #c4c4c4;
+table.countries button.created i {
+  color: #c4c4c4;
 }
-table.countries button.update {
-  background: #f4cc82;
+table.countries button.update i {
+  color: #e4af4d;
 }
-table.countries button.delete {
-  background: #f89292;
+table.countries button.delete i {
+  color: #dd7070;
+}
+table.countries tbody a button {
+  -webkit-transition: all .13s ease-out;
+  -moz-transition: all .13s ease-out;
+  -o-transition: all .13s ease-out;
+  transition: all .13s ease-out;
+}
+table.countries tbody a button:hover {
+  transform: scale(1.1);
+}
+table.countries tbody tr:nth-child(odd) {
+  background: #f3ede1;
+}
+table.countries tbody tr:nth-child(even) {
+  background: #fdf8ef;
+}
+.fw600 {
+  font-weight: 600;
+}
+.cblack {
+  color: #000;
 }
 button.come-back {
-  background: #a8dce3;
+  background: #f8f8f8;
+  box-shadow: 0px 0px 2px #0000007d;
   border: 0;
   padding: 5px 13px;
   font-weight: 600;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 button.come-back i {
   margin-right: 5px;
+}
+img.mini-flag {
+  width: 30px;
+  height: auto;
+  box-shadow: 0px 0px 5px #0000007d;
+  margin-bottom: 3px;
+}
+.flag img {
+  width: 80px;
+  height: auto;
+  box-shadow: 0px 3px 7px #0000006b;
+}
+#svggroup text:hover {
+  cursor: pointer;
+}
+#svggroup path {
+  -webkit-transition: all .13s ease-out;
+  -moz-transition: all .13s ease-out;
+  -o-transition: all .13s ease-out;
+  transition: all .13s ease-out;
+}
+#svggroup path.americas:hover {
+  fill: #83b47f;
+}
+#svggroup path.europe:hover {
+  fill: #82a2d0;
+}
+#svggroup path.africa:hover {
+  fill: #c78080;
+}
+#svggroup path.asia:hover {
+  fill: #cddb86;
+}
+#svggroup path.oceania:hover {
+  fill: #dfac73;
+}
+#svggroup text {
+  pointer-events: none;
 }

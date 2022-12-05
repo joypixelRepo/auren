@@ -48,6 +48,17 @@ Route::get('/region/{region}', function (GuzzleHttp\Client $client, $region) {
     );
 });
 
+Route::get('/view/{countryCode}', function (GuzzleHttp\Client $client, $countryCode) {
+    // get API data
+    $responseApi = $client->request('GET', 'alpha/'.$countryCode);
+    $dataApi = json_decode($responseApi->getBody());
+
+    //show information of the selected country
+    return view('country', 
+      ['countryApi' => $dataApi],
+    );
+});
+
 Route::get('/add/{countryCode}', function (GuzzleHttp\Client $client, $countryCode) {
     // get API data
     $responseApi = $client->request('GET', 'alpha/'.$countryCode);
