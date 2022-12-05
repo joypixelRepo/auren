@@ -38,6 +38,7 @@ Route::get('/region/{region}', function (GuzzleHttp\Client $client, $region) {
       }
     }
 
+    //show countries of the selected region
     return view('countries', 
       [
         'countriesApi' => $dataApi,
@@ -45,6 +46,54 @@ Route::get('/region/{region}', function (GuzzleHttp\Client $client, $region) {
         'countriesInDb' => $countriesInDb,
       ],
     );
+});
+
+Route::get('/add/{countryCode}', function (GuzzleHttp\Client $client, $countryCode) {
+    // get API data
+    $responseApi = $client->request('GET', 'alpha/'.$countryCode);
+    $dataApi = json_decode($responseApi->getBody());
+
+    //insert country in database
+    DB::table('countries')->insert([
+      'common_name' => $dataApi[0]->name->common,
+      'official_name' => $dataApi[0]->name->official,
+      'capital' => $dataApi[0]->capital[0],
+      'region' => $dataApi[0]->region,
+      'cca2' => $dataApi[0]->cca2,
+    ]);
+
+    return redirect($_GET['ret']);
+
+});
+
+Route::get('/upd/{countryCode}', function (GuzzleHttp\Client $client, $countryCode) {
+    // get API data
+    $responseApi = $client->request('GET', 'alpha/'.$countryCode);
+    $dataApi = json_decode($responseApi->getBody());
+
+    //update country in database
+    DB::table('countries')->where('cca2', $countryCode)->update([
+        'common_name' => $dataApi[0]->name->common,
+        'official_name' => $dataApi[0]->name->official,
+        'capital' => $dataApi[0]->capital[0],
+        'region' => $dataApi[0]->region,
+        'cca2' => $dataApi[0]->cca2,
+      ]);
+
+    return redirect($_GET['ret']);
+
+});
+
+Route::get('/del/{countryCode}', function (GuzzleHttp\Client $client, $countryCode) {
+    // get API data
+    $responseApi = $client->request('GET', 'alpha/'.$countryCode);
+    $dataApi = json_decode($responseApi->getBody());
+
+    //delete country in database
+    DB::table('countries')->where('cca2', '=', $countryCode)->delete();
+
+    return redirect($_GET['ret']);
+
 });
 
 
